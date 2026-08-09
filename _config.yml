@@ -1,0 +1,12 @@
+title: Pure Computers
+description: PURE COMPUTERS — Custom PC builds, AI-driven business optimization, expert repairs, and responsive tech support.
+baseurl: "/puco-py"
+url: "https://nate-mina.github.io"
+markdown: kramdown
+exclude:
+  - "_venv"
+  - "scripts"
+  - "IDEA.md"
+  - "Pipfile"
+  - "Pipfile.lock"
+  - "images"
