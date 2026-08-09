@@ -4,107 +4,211 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{{ page.title }} — Pure Computers</title>
-<link rel="icon" href="{{ site.baseurl }}/favicon.ico">
-<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Montserrat:400,700&display=swap" rel="stylesheet">
+<link rel="icon" href="{{ site.baseurl }}/favicon.ico" type="image/x-icon">
+<link rel="stylesheet" href="{{ site.baseurl }}/icons/facebook_white_28dp.png">
 <style>
-  :root{ --blue:#2867b2; --orange:#ff8c00; --ink:#1c1c1c; --muted:#5f6368; }
-  *{ box-sizing:border-box; }
-  html,body{ margin:0; padding:0; }
-  body{ font-family:Roboto,Arial,Helvetica,sans-serif; color:var(--ink); background:#fff; line-height:1.6; }
-  a{ color:var(--blue); }
+  /* Google Fonts for the neon/Google Sites look */
+  @import url('https://fonts.googleapis.com/css2?family=Google+Sans:ital,wght@0,400;0,500;1,400&family=Montserrat:ital,wght@0,400;0,700;1,400;1,700&family=Roboto:ital,wght@0,300;0,400;0,500;0,700;1,400&family=Roboto+Mono:ital,wght@0,400;0,700;1,400&display=swap');
+</style>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-  /* ---- Nav ---- */
-  .pc-nav{ background:#fff; border-bottom:3px solid var(--orange); display:flex; align-items:center; flex-wrap:wrap; padding:8px 16px; position:sticky; top:0; z-index:50; box-shadow:0 2px 8px rgba(0,0,0,.08); }
-  .pc-brand{ font-family:Montserrat,sans-serif; font-weight:700; font-size:1.25rem; color:var(--blue); text-decoration:none; margin-right:18px; white-space:nowrap; }
-  .pc-menu{ list-style:none; margin:0; padding:0; display:flex; flex-wrap:wrap; gap:4px; }
-  .pc-menu > li{ position:relative; }
-  .pc-menu > li > a{ display:block; padding:10px 12px; text-decoration:none; color:var(--ink); font-weight:500; border-radius:6px; }
-  .pc-menu > li > a:hover{ background:#f1f5fb; color:var(--blue); }
-  .pc-drop{ display:none; position:absolute; top:100%; left:0; min-width:220px; background:#fff; border:1px solid #e6e6e6; border-radius:8px; box-shadow:0 8px 24px rgba(0,0,0,.12); list-style:none; margin:0; padding:6px 0; z-index:60; }
-  .pc-menu > li:hover > .pc-drop{ display:block; }
-  .pc-drop a{ display:block; padding:8px 16px; text-decoration:none; color:var(--ink); font-size:.95rem; }
-  .pc-drop a:hover{ background:#f1f5fb; color:var(--blue); }
+  /* ---------- body / page ---------- */
+  body {
+    background: #000;
+    color: #fff;
+    font-family: 'Roboto', 'Segoe UI', Arial, sans-serif;
+    min-height: 100vh;
+    padding-top: 56px;
+  }
 
-  /* ---- Hero ---- */
-  .pc-hero{ background:#0b2a4a center/cover no-repeat; color:#fff; padding:72px 16px; text-align:center; }
-  .pc-hero-inner{ max-width:900px; margin:0 auto; }
-  .pc-hero h1{ font-family:Montserrat,sans-serif; font-size:2.6rem; margin:0 0 10px; text-shadow:0 2px 12px rgba(0,0,0,.5); }
-  .pc-hero p{ font-size:1.15rem; margin:0; opacity:.95; text-shadow:0 1px 8px rgba(0,0,0,.5); }
+  /* ---------- top orange header (Google Sites nav) ---------- */
+  #site-header {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 1000;
+    background: linear-gradient(180deg, #FFC107 0%, #FFA000 100%);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    font-family: 'Roboto', 'Segoe UI', Arial, sans-serif;
+    height: 56px;
+  }
+  #site-header .header-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    height: 56px;
+    display: flex;
+    align-items: center;
+  }
+  #site-header .logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    color: #fff;
+    font-family: 'Google Sans', 'Roboto', Arial, sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.25);
+    flex-shrink: 0;
+  }
+  #site-header .logo img {
+    height: 40px;
+    width: auto;
+    filter: drop-shadow(0 1px 2px rgba(0,0,0,0.25));
+  }
+  #site-header nav {
+    display: flex;
+    gap: 2px;
+    margin-left: auto;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  #site-header nav a {
+    display: inline-block;
+    padding: 6px 14px;
+    color: #fff;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 400;
+    border-radius: 3px;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.25);
+    transition: background 0.15s;
+    white-space: nowrap;
+  }
+  #site-header nav a:hover {
+    background: rgba(0,0,0,0.12);
+  }
+  #site-header nav a.active {
+    background: rgba(87, 55, 0, 0.85);
+    color: #fff;
+    font-weight: 500;
+  }
 
-  /* ---- Content (Google Sites classes, re-styled to render statically) ---- */
-  .yaqOZd{ padding:32px 16px; max-width:1000px; margin:0 auto; }
-  .zfr3Q{ font-family:Roboto,Arial,sans-serif; color:var(--ink); }
-  p.zfr3Q, .zfr3Q.CDt4Ke{ margin:0 0 16px; }
-  h1.zfr3Q{ font-size:2rem; font-weight:700; margin:24px 0 12px; color:var(--blue); }
-  h2.zfr3Q{ font-size:1.6rem; font-weight:700; margin:20px 0 10px; color:var(--blue); }
-  h3.zfr3Q{ font-size:1.3rem; font-weight:700; margin:16px 0 8px; color:var(--blue); }
-  .C9DxTc{ font-variant:normal !important; }
-  img.CENy8b{ max-width:100%; height:auto; display:block; margin:16px auto; border-radius:10px; box-shadow:0 4px 16px rgba(0,0,0,.15); }
-  .t3iYD{ text-align:center; }
-  ol.n8H08c, ul.n8H08c{ margin:0 0 16px; padding-left:24px; }
-  li.zfr3Q{ margin:6px 0; }
-  a.XqQF9c{ color:var(--orange); text-decoration:underline; }
-  .i2gjFc{ display:flex; flex-wrap:wrap; justify-content:center; gap:4px; }
-  .i2gjFc img{ width:36px; height:36px; }
+  /* ---------- main ---------- */
+  .page {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 24px 20px 40px;
+    min-height: calc(100vh - 56px);
+  }
 
-  /* ---- Clone-fix: neutralize Google runtime hiding so content is visible ---- */
-  .Ap4VC.yMxPgf.aP9Z7e{ display:none !important; }
-  .zfr3Q.duRjpb.CDt4Ke{ position:static !important; overflow:visible !important; height:auto !important; width:auto !important; margin:0 !important; padding:0 !important; }
-  h1.zfr3Q,h2.zfr3Q,h3.zfr3Q{ display:block !important; }
-  .C9DxTc{ display:inline !important; position:static !important; }
-  .jXK9ad,.jXK9ad-SmKAyb,.tyJCtd,.baZpAe,.mGzaTb,.Depvyb,.lkHyyc{ position:static !important; height:auto !important; overflow:visible !important; }
-  .CjVfdc{ position:static !important; }
+  /* ---------- hero / top banner ---------- */
+  .hero {
+    position: relative;
+    min-height: 320px;
+    background:
+      linear-gradient(180deg, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0.75) 100%),
+      url('{{ site.baseurl }}/Content_images/hero_beach.png') center/cover no-repeat;
+    border-radius: 6px;
+    margin-bottom: 28px;
+    display: flex;
+    align-items: flex-end;
+    padding: 28px 32px;
+    overflow: hidden;
+  }
+  .hero .hero-inner { position: relative; z-index: 1; max-width: 720px; }
+  .hero h1 {
+    font-family: 'Google Sans', 'Montserrat', 'Roboto', sans-serif;
+    font-weight: 500;
+    font-size: 38px;
+    line-height: 1.1;
+    color: #fff;
+    letter-spacing: 0.3px;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.55);
+  }
+  .hero .tagline {
+    margin-top: 8px;
+    font-size: 17px;
+    color: rgba(255,255,255,0.92);
+    text-shadow: 0 1px 4px rgba(0,0,0,0.5);
+    font-family: 'Roboto', Arial, sans-serif;
+  }
 
-  /* ---- Footer (kept from source) ---- */
-  footer{ background:#1c1c1c; color:#e6e3df; padding:24px 16px; text-align:center; margin-top:32px; }
-  footer a{ color:var(--orange); }
-  footer small{ font-size:.85rem; }
+  /* ---------- sections (preserves original neon inline colors on black bg) ---------- */
+  .page section {
+    margin-bottom: 28px;
+    padding: 22px 24px;
+    background: rgba(18,18,18,0.85);
+    border-radius: 6px;
+    border: 1px solid #2a2a2a;
+  }
+  .page section h1, .page section h2, .page section h3 {
+    font-family: 'Montserrat', 'Google Sans', 'Roboto', sans-serif;
+    margin-bottom: 10px;
+    line-height: 1.25;
+  }
+  .page section p, .page section li {
+    font-family: 'Roboto', Arial, sans-serif;
+    line-height: 1.6;
+    font-size: 15px;
+    color: #dcdcdc;
+  }
+  .page section img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 4px;
+    display: block;
+  }
+
+  /* ---------- footer (matches the neon footer block) ---------- */
+  .site-footer {
+    background: rgba(10,10,10,0.92);
+    border-top: 1px solid #222;
+    padding: 20px 32px;
+    text-align: center;
+    font-family: 'Roboto', Arial, sans-serif;
+    color: #e6e3df;
+    font-size: 13px;
+  }
+  .site-footer a {
+    color: #0000ff;
+    text-decoration: underline;
+  }
 </style>
 </head>
 <body>
-<nav class="pc-nav">
-  <a class="pc-brand" href="{{ site.baseurl }}/">Pure Computers</a>
-  <ul class="pc-menu">
-    <li><a href="{{ site.baseurl }}/">Home</a></li>
-    <li><a href="{{ site.baseurl }}/pages/get-help-now.html">Get Help Now</a>
-      <ul class="pc-drop">
-        <li><a href="{{ site.baseurl }}/pages/get-help-now-computer-help.html">Computer Help</a></li>
-        <li><a href="{{ site.baseurl }}/pages/get-help-now-it-support.html">IT support</a></li>
-      </ul>
-    </li>
-    <li><a href="{{ site.baseurl }}/pages/about-us.html">About Us</a></li>
-    <li><a href="{{ site.baseurl }}/pages/services.html">Services</a>
-      <ul class="pc-drop">
-        <li><a href="{{ site.baseurl }}/pages/services-simulation-with-optimization.html">Simulation with Optimization</a></li>
-        <li><a href="{{ site.baseurl }}/pages/services-a-i-tools.html">A.I. Tools</a></li>
-        <li><a href="{{ site.baseurl }}/pages/services-optimize-everything.html">Optimize Everything</a></li>
-        <li><a href="{{ site.baseurl }}/pages/services-fast-tech-support.html">Fast Tech Support</a></li>
-        <li><a href="{{ site.baseurl }}/pages/services-pc-performance.html">PC PERFORMANCE</a></li>
-        <li><a href="{{ site.baseurl }}/pages/services-gaming.html">Gaming</a></li>
-      </ul>
-    </li>
-    <li><a href="{{ site.baseurl }}/pages/form.html">Form</a></li>
-    <li><a href="{{ site.baseurl }}/pages/more-game.html">More</a>
-      <ul class="pc-drop">
-        <li><a href="{{ site.baseurl }}/pages/more-microsoft-challenge.html">Microsoft Challenge</a></li>
-        <li><a href="{{ site.baseurl }}/pages/more-game.html">Game</a></li>
-      </ul>
-    </li>
-    <li><a href="{{ site.baseurl }}/pages/referral-program.html">Referral Program</a></li>
-    <li><a href="{{ site.baseurl }}/pages/privacyterms-privacy-policy.html">Privacy/Terms</a>
-      <ul class="pc-drop">
-        <li><a href="{{ site.baseurl }}/pages/privacyterms-yum-cookies.html">Yum, Cookies</a></li>
-        <li><a href="{{ site.baseurl }}/pages/privacyterms-disclaimers.html">Disclaimers</a></li>
-      </ul>
-    </li>
-  </ul>
-</nav>
-<header class="pc-hero" style="background-image:url('{{ site.baseurl }}/Content_images/hero_beach.png')">
-  <div class="pc-hero-inner">
-    <h1>Pure Computers</h1>
-    <p>Custom PC builds &middot; AI-driven business optimization &middot; Expert repairs &middot; Responsive tech support</p>
+
+<div id="site-header">
+  <div class="header-inner">
+    <a class="logo" href="{{ site.baseurl }}/">
+      <img src="{{ site.baseurl }}/Content_images/hero_beach.png" alt="Pure Computers">
+      <span>Pure Computers</span>
+    </a>
+    <nav>
+      <a href="{{ site.baseurl }}/pages/pc-home.html" class="{% if page.title == 'Pure Computers' %}active{% endif %}">PC-Home</a>
+      <a href="{{ site.baseurl }}/pages/get-help-now.html">Get Help Now!</a>
+      <a href="{{ site.baseurl }}/pages/about-us.html" class="{% if page.title == 'About Us' %}active{% endif %}">About Us</a>
+      <a href="{{ site.baseurl }}/pages/services.html" class="{% if page.title == 'Services' %}active{% endif %}">Services</a>
+      <a href="{{ site.baseurl }}/pages/form.html">Form</a>
+      <a href="{{ site.baseurl }}/pages/more-game.html">More</a>
+      <a href="{{ site.baseurl }}/pages/referral-program.html">Referral Program</a>
+      <a href="{{ site.baseurl }}/pages/privacyterms-disclaimers.html">Privacy/Terms</a>
+    </nav>
   </div>
-</header>
-{{ content }}
+</div>
+
+<main class="page">
+  <div class="hero">
+    <div class="hero-inner">
+      <h1>PURE COMPUTERS:</h1>
+      <div class="tagline">Pure Uncomplicates Work, By making your tech as simple as it can be but not any simpler!</div>
+    </div>
+  </div>
+
+  {{ content }}
+</main>
+
+<footer class="site-footer">
+  <p style="margin:6px 0;">
+    <a href="tel:5854841764" style="color:#0000ff; font-weight:700;">{Call 585-484-1764}</a>
+    &nbsp;
+    <a href="{{ site.baseurl }}/pages/privacyterms-privacy-policy.html">Privacy Policy</a>
+    &nbsp;
+    <a href="mailto:PureComproc@gmail.com">Email Us</a>
+  </p>
+  <p style="margin:0;">2024-PURECOMPUTERS</p>
+</footer>
+
 </body>
 </html>
