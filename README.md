@@ -66,7 +66,7 @@ A directory listing is also available at `http://127.0.0.1:8099/pages/`.
 
 ## Validation
 
-- **19/19 pages**: 0 external `lh3` image refs remaining
+- **20/20 pages**: 0 external `lh3` image refs remaining (index.html + 19 sub-pages)
 - 98 local asset refs (src/href into `Content_images/` or `icons/`), 0 missing
 - External profile/social links preserved (point to live URLs)
 - Verified via `os.path.exists` on every local ref per page (not via browser — the browser guard blocks `127.0.0.1`/`file://`)
