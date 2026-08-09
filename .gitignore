@@ -2,3 +2,6 @@ _venv/
 __pycache__/
 *.pyc
 scripts/__pycache__/
+node_modules/
+wb_full.html
+package-lock.json
