@@ -69,10 +69,10 @@ def rewrite_assets_and_links(body, is_home=False):
     body = body.replace('../Content_images/', 'Content_images/')
     body = body.replace('../icons/', 'icons/')
     body = body.replace('../images/', 'Content_images/')
-    # Step 2: prefix bare tokens with baseurl (only matches tokens not already prefixed,
-    # because the replacement text '{{ site.baseurl }}/Content_images/' no longer contains a
-    # bare 'Content_images/' that the pattern would re-catch — the pattern requires the token
-    # to be preceded by start-of-string, whitespace, quote or similar, which '}}/' is not).
+    # Step 1b: swap Google's remote social-icon CDN for our local icons/ copies (always load).
+    body = re.sub(r'https://ssl\.gstatic\.com/atari/images/sociallinks/([\w_]+_white_\d+dp\.png)',
+                  r'{{ site.baseurl }}/icons/\1', body)
+    # Step 2: prefix bare tokens with baseurl.
     body = re.sub(r'(?<![\w/.}])Content_images/', '{{ site.baseurl }}/Content_images/', body)
     body = re.sub(r'(?<![\w/.}])icons/', '{{ site.baseurl }}/icons/', body)
     body = re.sub(r'(?<![\w/.}])images/', '{{ site.baseurl }}/Content_images/', body)
