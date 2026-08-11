@@ -5,15 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{{ page.title }} — Pure Computers</title>
 <link rel="icon" href="{{ site.baseurl }}/favicon.ico" type="image/x-icon">
-<link rel="stylesheet" href="{{ site.baseurl }}/icons/facebook_white_28dp.png">
 <style>
-  /* Google Fonts for the neon/Google Sites look */
   @import url('https://fonts.googleapis.com/css2?family=Google+Sans:ital,wght@0,400;0,500;1,400&family=Montserrat:ital,wght@0,400;0,700;1,400;1,700&family=Roboto:ital,wght@0,300;0,400;0,500;0,700;1,400&family=Roboto+Mono:ital,wght@0,400;0,700;1,400&display=swap');
 </style>
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-  /* ---------- body / page ---------- */
   body {
     background: #000;
     color: #fff;
@@ -22,23 +19,22 @@
     padding-top: 56px;
   }
 
-  /* ---------- top header (solid orange Google Sites nav) ---------- */
+  /* ---------- top header: black strip + orange nav (Google Sites) ---------- */
   #site-header {
     position: fixed;
     top: 0; left: 0; right: 0;
     z-index: 1000;
-    background: #FFA000;
-    box-shadow: 0 1px 2px rgba(0,0,0,0.15);
+    background: #000;
     font-family: 'Roboto', 'Segoe UI', Arial, sans-serif;
-    height: 56px;
   }
   #site-header .header-inner {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 0 20px;
     height: 56px;
     display: flex;
     align-items: center;
+    background: #FFA000;
+    padding: 0 20px;
   }
   #site-header .logo {
     display: flex;
@@ -52,10 +48,22 @@
     text-shadow: 0 1px 2px rgba(0,0,0,0.25);
     flex-shrink: 0;
   }
+  #site-header .logo .logo-box {
+    width: 34px;
+    height: 34px;
+    background: #FFA000;
+    color: #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 12px;
+    border-radius: 3px;
+    text-shadow: none;
+  }
   #site-header .logo img {
-    height: 40px;
+    height: 34px;
     width: auto;
-    filter: drop-shadow(0 1px 2px rgba(0,0,0,0.25));
   }
   #site-header nav {
     display: flex;
@@ -85,58 +93,24 @@
     font-weight: 500;
   }
 
-  /* ---------- main ---------- */
+  /* ---------- main content (pure black canvas) ---------- */
   .page {
     max-width: 1200px;
     margin: 0 auto;
     padding: 24px 20px 40px;
     min-height: calc(100vh - 56px);
+    background: #000;
   }
-
-  /* ---------- hero / top banner ---------- */
-  .hero {
-    position: relative;
-    min-height: 320px;
-    background:
-      linear-gradient(180deg, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0.75) 100%),
-      url('{{ site.baseurl }}/Content_images/hero_beach.png') center/cover no-repeat;
-    border-radius: 6px;
-    margin-bottom: 28px;
-    display: flex;
-    align-items: flex-end;
-    padding: 28px 32px;
-    overflow: hidden;
-  }
-  .hero .hero-inner { position: relative; z-index: 1; max-width: 720px; }
-  .hero h1 {
-    font-family: 'Google Sans', 'Montserrat', 'Roboto', sans-serif;
-    font-weight: 500;
-    font-size: 38px;
-    line-height: 1.1;
-    color: #fff;
-    letter-spacing: 0.3px;
-    text-shadow: 0 2px 8px rgba(0,0,0,0.55);
-  }
-  .hero .tagline {
-    margin-top: 8px;
-    font-size: 17px;
-    color: rgba(255,255,255,0.92);
-    text-shadow: 0 1px 4px rgba(0,0,0,0.5);
-    font-family: 'Roboto', Arial, sans-serif;
-  }
-
-  /* ---------- sections (preserves original neon inline colors on black bg) ---------- */
   .page section {
-    margin-bottom: 28px;
-    padding: 22px 24px;
-    background: rgba(18,18,18,0.85);
-    border-radius: 6px;
-    border: 1px solid #2a2a2a;
+    margin-bottom: 24px;
+    padding: 18px 20px;
+    background: #000;
   }
   .page section h1, .page section h2, .page section h3 {
     font-family: 'Montserrat', 'Google Sans', 'Roboto', sans-serif;
     margin-bottom: 10px;
     line-height: 1.25;
+    color: #fff;
   }
   .page section p, .page section li {
     font-family: 'Roboto', Arial, sans-serif;
@@ -147,13 +121,17 @@
   .page section img {
     max-width: 100%;
     height: auto;
-    border-radius: 4px;
     display: block;
   }
+  /* keep the original neon inline colors; ensure they read on black */
+  .page section [style*="color: #ffffff"],
+  .page section [style*="color:#ffffff"] { color: #ffffff !important; }
+  .page section [style*="color: #000000"],
+  .page section [style*="color:#000000"] { color: #e0e0e0 !important; }
 
-  /* ---------- footer (matches the neon footer block) ---------- */
+  /* ---------- footer ---------- */
   .site-footer {
-    background: rgba(10,10,10,0.92);
+    background: #000;
     border-top: 1px solid #222;
     padding: 20px 32px;
     text-align: center;
@@ -161,10 +139,7 @@
     color: #e6e3df;
     font-size: 13px;
   }
-  .site-footer a {
-    color: #0000ff;
-    text-decoration: underline;
-  }
+  .site-footer a { color: #3399ff; text-decoration: underline; }
 </style>
 </head>
 <body>
@@ -172,7 +147,7 @@
 <div id="site-header">
   <div class="header-inner">
     <a class="logo" href="{{ site.baseurl }}/">
-      <img src="{{ site.baseurl }}/Content_images/hero_beach.png" alt="Pure Computers">
+      <span class="logo-box">PURE</span>
       <span>Pure Computers</span>
     </a>
     <nav class="pc-menu">
@@ -189,19 +164,12 @@
 </div>
 
 <main class="page">
-  <div class="hero">
-    <div class="hero-inner">
-      <h1>PURE COMPUTERS:</h1>
-      <div class="tagline">Pure Uncomplicates Work, By making your tech as simple as it can be but not any simpler!</div>
-    </div>
-  </div>
-
   {{ content }}
 </main>
 
 <footer class="site-footer">
   <p style="margin:6px 0;">
-    <a href="tel:5854841764" style="color:#0000ff; font-weight:700;">{Call 585-484-1764}</a>
+    <a href="tel:5854841764" style="color:#3399ff; font-weight:700;">{Call 585-484-1764}</a>
     &nbsp;
     <a href="{{ site.baseurl }}/pages/privacyterms-privacy-policy.html">Privacy Policy</a>
     &nbsp;

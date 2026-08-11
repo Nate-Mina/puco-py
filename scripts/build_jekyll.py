@@ -106,17 +106,22 @@ for fn in sorted(os.listdir(PAGES)):
     title = build_page(src, dst, fn.replace('.html', '').replace('-', ' ').title())
     results.append((fn, title))
 
-# Rebuild index.html at root from the homepage source (pc-home.html or index.html)
-home_src = os.path.join(PAGES, 'pc-home.html')
+# Rebuild index.html at root from the LIVE homepage DOM (fresh pull) if present,
+# otherwise fall back to the bundled pc-home.html.
+home_src = os.path.join(BASE, 'live_content.html')
 if os.path.exists(home_src):
     raw = open(home_src, encoding='utf-8').read()
-    body = strip_shell(raw)
-    body = clean_body(body)
-    body = rewrite_assets_and_links(body, is_home=True)
+    title = 'Pure Computers'
+else:
+    home_src = os.path.join(PAGES, 'pc-home.html')
+    raw = open(home_src, encoding='utf-8').read()
     title = extract_title(raw, 'Pure Computers')
-    out = '---\ntitle: Pure Computers\nlayout: default\n---\n\n' + body.strip() + '\n'
-    open(os.path.join(BASE, 'index.html'), 'w', encoding='utf-8').write(out)
-    results.insert(0, ('index.html (from pc-home)', title))
+body = strip_shell(raw)
+body = clean_body(body)
+body = rewrite_assets_and_links(body, is_home=True)
+out = '---\ntitle: Pure Computers\nlayout: default\n---\n\n' + body.strip() + '\n'
+open(os.path.join(BASE, 'index.html'), 'w', encoding='utf-8').write(out)
+results.insert(0, ('index.html (from live home)', title))
 
 print('Built', len(results), 'pages:')
 for fn, t in results:

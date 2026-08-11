@@ -5,3 +5,4 @@ scripts/__pycache__/
 node_modules/
 wb_full.html
 package-lock.json
+_site/
