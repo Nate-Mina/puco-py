@@ -1,7 +1,8 @@
 import re, os, shutil
 
 BASE = r'V:\__Purecomp'
-PAGES = os.path.join(BASE, 'pages')
+RAW_PAGES = os.path.join(BASE, 'raw_pages')   # pristine Google Sites HTML (source of truth)
+PAGES = os.path.join(BASE, 'pages')            # built Jekyll output (regenerated each run)
 
 # Map internal page links to the flattened, Jekyll-friendly URLs we use in the nav.
 # (keeps existing href values that already point at the right file; only rewrites root-absolute slugs)
@@ -64,11 +65,18 @@ def clean_body(body):
     return body
 
 def rewrite_assets_and_links(body, is_home=False):
-    # Assets: any Content_images/ or icons/ -> prefix with {{ site.baseurl }}/
-    body = re.sub(r'(?<![\w/.])Content_images/', '{{ site.baseurl }}/Content_images/', body)
-    body = re.sub(r'(?<![\w/])icons/', '{{ site.baseurl }}/icons/', body)
-    body = re.sub(r'(?<![\w/.])images/', '{{ site.baseurl }}/Content_images/', body)
-    body = re.sub(r'(?<![\w/.])favicon\.ico', '{{ site.baseurl }}/favicon.ico', body)
+    # Step 1: normalize relative '../' prefixes to bare tokens.
+    body = body.replace('../Content_images/', 'Content_images/')
+    body = body.replace('../icons/', 'icons/')
+    body = body.replace('../images/', 'Content_images/')
+    # Step 2: prefix bare tokens with baseurl (only matches tokens not already prefixed,
+    # because the replacement text '{{ site.baseurl }}/Content_images/' no longer contains a
+    # bare 'Content_images/' that the pattern would re-catch — the pattern requires the token
+    # to be preceded by start-of-string, whitespace, quote or similar, which '}}/' is not).
+    body = re.sub(r'(?<![\w/.}])Content_images/', '{{ site.baseurl }}/Content_images/', body)
+    body = re.sub(r'(?<![\w/.}])icons/', '{{ site.baseurl }}/icons/', body)
+    body = re.sub(r'(?<![\w/.}])images/', '{{ site.baseurl }}/Content_images/', body)
+    body = re.sub(r'(?<![\w/.}])favicon\.ico', '{{ site.baseurl }}/favicon.ico', body)
     # Links: root-absolute slug -> mapped url
     for slug, dst in sorted(SLUG_MAP.items(), key=lambda kv: len(kv[0]), reverse=True):
         body = re.sub(r'href="' + re.escape(slug) + r'"', 'href="' + dst + '"', body)
@@ -98,10 +106,10 @@ def build_page(path, out_path, fallback_title):
 os.makedirs(os.path.join(BASE, 'pages'), exist_ok=True)
 
 results = []
-for fn in sorted(os.listdir(PAGES)):
+for fn in sorted(os.listdir(RAW_PAGES)):
     if not fn.endswith('.html'):
         continue
-    src = os.path.join(PAGES, fn)
+    src = os.path.join(RAW_PAGES, fn)
     dst = os.path.join(PAGES, fn)  # keep flat file in pages/
     title = build_page(src, dst, fn.replace('.html', '').replace('-', ' ').title())
     results.append((fn, title))
@@ -113,7 +121,7 @@ if os.path.exists(home_src):
     raw = open(home_src, encoding='utf-8').read()
     title = 'Pure Computers'
 else:
-    home_src = os.path.join(PAGES, 'pc-home.html')
+    home_src = os.path.join(RAW_PAGES, 'pc-home.html')
     raw = open(home_src, encoding='utf-8').read()
     title = extract_title(raw, 'Pure Computers')
 body = strip_shell(raw)
